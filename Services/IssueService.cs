@@ -18,6 +18,7 @@ namespace tickeing_system.Services
         _context = context;
         }
 
+        // Service to get issue by issueId
         public Issue GetIssueDetailsById(int issueId)
         {
             List<Issue> issueList;
@@ -32,6 +33,7 @@ namespace tickeing_system.Services
             return issue;
         }
         
+        // Service to get issue by issueTitle
         public Issue GetIssueByTitle(string issueTitle)
         {
             List<Issue> issueList;
@@ -46,6 +48,7 @@ namespace tickeing_system.Services
             return issue;
         }
 
+        // Services to get all issues
         public List<Issue> GetIssueList()
         {
             List<Issue> issueList;
@@ -58,6 +61,7 @@ namespace tickeing_system.Services
             return issueList;
         }
 
+        // Service to add issue labels
         public ResponseModel AddIssueLabel(models.LabelView labelModel){
             ResponseModel model = new ResponseModel();
             try
@@ -78,6 +82,8 @@ namespace tickeing_system.Services
             }
             return model;
         }
+
+        // Service to update project issue
         public ResponseModel UpdateProjectIssue(int issueId, IssueView issueModel){
             ResponseModel model = new ResponseModel();
             try
@@ -104,6 +110,8 @@ namespace tickeing_system.Services
             }
             return model;
         }
+
+        // Service to change to issue status
         public ResponseModel UpdateIssueToNextStatus(int issueId)
         {
             ResponseModel model = new ResponseModel();
@@ -132,6 +140,8 @@ namespace tickeing_system.Services
             }
             return model;
         }
+
+        // Service to rest issue status to open
         public ResponseModel ResetIssueStatus(int issueId)
         {
             ResponseModel model = new ResponseModel();
@@ -155,6 +165,7 @@ namespace tickeing_system.Services
             return model;
         }
 
+        // Service to create issue
         public ResponseModel SaveIssue(IssueView issueModel)
         {
             ResponseModel model = new ResponseModel();
@@ -210,6 +221,7 @@ namespace tickeing_system.Services
             return model;
         }
 
+        // Service to delete issue label
         public ResponseModel DeleteIssueLabel(int issueId, int labelId)
         {
             ResponseModel model = new ResponseModel();

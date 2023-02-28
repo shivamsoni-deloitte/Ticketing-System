@@ -15,10 +15,8 @@ namespace tickeing_system.Services
             _userService = service;
             _context = context;
         }
-        // public ProjectService(TicketingSystemContex context) {
-        // _context = context;
-        // }
         
+        // Service to delete project
         public ResponseModel DeleteProject(int projectId)
         {
             ResponseModel model = new ResponseModel();
@@ -42,6 +40,7 @@ namespace tickeing_system.Services
             return model;
         }
 
+        // Service to delete project issue
         public ResponseModel DeleteProjectIssue(int projectId, int issueId)
         {
             ResponseModel model = new ResponseModel();
@@ -90,7 +89,7 @@ namespace tickeing_system.Services
             return projectList;
         }
         
-        // Service to get all u
+        // Service to save project
         public ResponseModel SaveProject(ProjectView projectModel)
         {
             
@@ -116,6 +115,7 @@ namespace tickeing_system.Services
             return model;
         }
 
+        // Service to update project
         public ResponseModel UpdateProject(ProjectView projectModel)
         {
             ResponseModel model = new ResponseModel();
