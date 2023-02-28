@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using tickeing_system.models;
 using tickeing_system.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace tickeing_system.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
     public class IssueController : ControllerBase
     {
         IIssueService _issueService;
@@ -19,7 +22,7 @@ namespace tickeing_system.Controllers
         }
 
         [HttpGet]
-        [Route("[action]/id")]
+        [Route("[action]/id"), Authorize]
         public IActionResult GetIssueById(int issueId) {
             try {
                 var issue = _issueService.GetIssueDetailsById(issueId);
@@ -31,7 +34,7 @@ namespace tickeing_system.Controllers
         }
 
         [HttpGet]
-        [Route("[action]/title")]
+        [Route("[action]/title"), Authorize]
         public IActionResult GetIssueByTitile(string issueTitle){
             try {
                 var issue = _issueService.GetIssueByTitle(issueTitle);
@@ -43,7 +46,7 @@ namespace tickeing_system.Controllers
         }
 
         [HttpGet]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult GetAllIssuess() {
             try {
                 var issues = _issueService.GetIssueList();
@@ -56,7 +59,7 @@ namespace tickeing_system.Controllers
 
         // Controller to create issue
         [HttpPost]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult CreateIssue(IssueView issueModel) {
             try {
                 var model = _issueService.SaveIssue(issueModel);
@@ -67,7 +70,7 @@ namespace tickeing_system.Controllers
         }
 
         [HttpPut]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult AddIssueLabel(LabelView labelModel){
             try
             {
@@ -79,7 +82,7 @@ namespace tickeing_system.Controllers
         }
 
         [HttpPut]
-        [Route("[action]/issueId")]
+        [Route("[action]/issueId"), Authorize]
         public IActionResult UpdateIssueToNextStatus(int issueId){
             try
             {
@@ -91,7 +94,7 @@ namespace tickeing_system.Controllers
         }
 
         [HttpPut]
-        [Route("[action]/issueId")]
+        [Route("[action]/issueId"), Authorize]
         public IActionResult ResetIssueStatus(int issueId){
             try
             {
@@ -103,7 +106,7 @@ namespace tickeing_system.Controllers
         }
 
         [HttpPut]
-        [Route("[action]/issueId")]
+        [Route("[action]/issueId"), Authorize]
         public IActionResult UpdateProjectIssue(int issueId, IssueView issueModel){
             try
             {
@@ -116,7 +119,7 @@ namespace tickeing_system.Controllers
 
 
         [HttpDelete]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult DeleteIssueLabel(int issueId, int labelId) {
             try {
                 var model = _issueService.DeleteIssueLabel(issueId,labelId);

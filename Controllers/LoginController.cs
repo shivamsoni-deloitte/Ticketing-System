@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using tickeing_system.models;
+using tickeing_system.Services;
 
 namespace tickeing_system.Controllers
 {
@@ -16,9 +17,10 @@ namespace tickeing_system.Controllers
     public class LoginController : ControllerBase
     {
         private IConfiguration _config;
-
-        public LoginController(IConfiguration _config){
+        IUserService _userService;
+        public LoginController(IConfiguration _config, IUserService service){
             _config = _config;
+            _userService = service;
         }
 
         [HttpPost, Route("login")]
@@ -29,8 +31,7 @@ namespace tickeing_system.Controllers
                 if (string.IsNullOrEmpty(loginDTO.UserName) ||
                 string.IsNullOrEmpty(loginDTO.UserPassword))
                     return BadRequest("Username and/or Password not specified");
-                if (loginDTO.UserName.Equals("shivam") &&
-                loginDTO.UserPassword.Equals("shivam123"))
+                if (_userService.VerifyUser(loginDTO.UserName,loginDTO.UserPassword))
                 {
                     var secretKey = new SymmetricSecurityKey
                     (Encoding.UTF8.GetBytes("thisisasecretkey@123"));

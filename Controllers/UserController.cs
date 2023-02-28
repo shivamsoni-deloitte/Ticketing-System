@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using tickeing_system.models;
 using tickeing_system.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace tickeing_system.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
     public class UserController : ControllerBase
     {
         IUserService _userService;
@@ -20,7 +23,7 @@ namespace tickeing_system.Controllers
 
         // Controller to get all Users
         [HttpGet]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult GetAllUsers() {
             try {
                 var users = _userService.GetUserList();
@@ -33,7 +36,7 @@ namespace tickeing_system.Controllers
 
         // Controller to save User
         [HttpPost]
-        [Route("[action]")]
+        [Route("[action]"),AllowAnonymous]
         public IActionResult SaveUser(User userModel) {
             try {
                 var model = _userService.SaveUser(userModel);

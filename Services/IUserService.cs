@@ -12,5 +12,7 @@ namespace tickeing_system.Services
 
         User GetUserById(int userId);
         ResponseModel SaveUser(User employeeModel);
+
+        public bool VerifyUser(string UserName, string UserPassword);
     }
 }

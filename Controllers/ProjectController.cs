@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using tickeing_system.models;
 using tickeing_system.Services;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 namespace tickeing_system.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
     public class ProjectController : ControllerBase
     {
         IProjectService _projectService;
@@ -21,7 +23,7 @@ namespace tickeing_system.Controllers
 
         // Controller to get all Users
         [HttpGet]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult GetAllProjects() {
             try {
                 var projects = _projectService.GetProjectList();
@@ -33,7 +35,7 @@ namespace tickeing_system.Controllers
         }
 
         [HttpGet]
-        [Route("[action]/id")]
+        [Route("[action]/id"), Authorize]
         public IActionResult GetProjectById(int projectId) {
             try {
                 var project = _projectService.GetProjectDetailsById(projectId);
@@ -47,7 +49,7 @@ namespace tickeing_system.Controllers
 
         // Controller to save Project
         [HttpPost]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult SaveProject(ProjectView projectModel) {
             try {
                 var model = _projectService.SaveProject(projectModel);
@@ -59,7 +61,7 @@ namespace tickeing_system.Controllers
 
         // Controller to update Project
         [HttpPut]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult UpdateProject(ProjectView projectModel) {
             try {
                 var model = _projectService.UpdateProject(projectModel);
@@ -71,7 +73,7 @@ namespace tickeing_system.Controllers
 
         // Controller to delete Project
         [HttpDelete]
-        [Route("[action]")]
+        [Route("[action]"), Authorize]
         public IActionResult DeleteProject(int projectId) {
             try {
                 var model = _projectService.DeleteProject(projectId);
@@ -84,7 +86,7 @@ namespace tickeing_system.Controllers
 
         // Controller to delete Project Issue
         [HttpDelete]
-        [Route("[action]/projectId/issueId")]
+        [Route("[action]/projectId/issueId"), Authorize]
         public IActionResult  DeleteProjectIssue(int projectId, int issueId){
             try
             {

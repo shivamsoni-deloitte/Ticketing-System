@@ -33,6 +33,17 @@ namespace tickeing_system.Services
             }
             return user;
         }
+        public bool VerifyUser(string UserName, string UserPassword)
+        {
+            List < User > userList;
+            User user;
+            userList = GetUserList();
+            user = userList.Find(u => u.UserName==UserName && u.UserPassword==UserPassword);
+            if (user!=null){
+                return true;
+            }
+            return false;
+        }
 
         // service to save user 
         public ResponseModel SaveUser(User userModel)
