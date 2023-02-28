@@ -41,7 +41,7 @@ namespace tickeing_system.Services
             try
             {
                 _context.Add<User> (userModel);
-                model.Message = "User Inserted Successfully";
+                model.Message = "User Added Successfully";
                 _context.SaveChanges();
                 model.IsSuccess = true;
             }
